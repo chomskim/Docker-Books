@@ -1,0 +1,21 @@
+services:
+  dynamodb:
+    image: amazon/dynamodb-local
+    ports:
+     - 8000:8000
+    networks:
+     - aws-internal
+  dynamodb-initializer:
+    image: amazon/aws-cli
+    env_file:
+      - ./mock_crentials.env
+    entrypoint: "/create_table.sh"
+    depends_on:
+      - dynamodb
+    volumes:
+      - ./create_table.sh:/create_table.sh
+    networks:
+     - aws-internal  
+networks:
+  aws-internal:
+  aws-public:

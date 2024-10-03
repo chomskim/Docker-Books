@@ -1,0 +1,14 @@
+services:
+  sqs:
+    image: softwaremill/elasticmq
+    ports:
+     - 9324:9324
+     - 9325:9325
+    networks:
+     - aws-internal
+    volumes:
+      - ./sqs.conf:/opt/elasticmq.conf
+
+networks:
+  aws-internal:
+  aws-public:
